@@ -56,32 +56,31 @@ var self = window.SlideShow = function(slide) {
 		});
 	}
 	
-	// Create slide indicator
-	this.indicator = document.createElement('div');
-	
-	this.indicator.id = 'indicator';
-	body.appendChild(this.indicator);
 	
 	// Get the slide elements into an array
 	this.slides = $$('.slide', body);
 
 	// Get the overview
 	this.overview = function(evt) {
-        if(body.classList.contains('show-thumbnails')) {
+        if(body.classList.contains('show-thumbnails')) {  //Si on est déjà en aperçu on désactive
             body.classList.remove('show-thumbnails');
             body.classList.remove('headers-only');
+        
+
+        
         }
-        else {
+        else {											//On active l'aperçu
             body.classList.add('show-thumbnails');
             
+            
             if(evt && (!evt.shiftKey || !evt.ctrlKey)) {
-                body.classList.add('headers-only');
+                body.classList.add('headers-only');		//Toutes les slides ou que les titre.
             }
 
             body.addEventListener('click', function(evt) {
                 var slide = evt.target;
                 
-                while(slide && !slide.classList.contains('slide')) {
+                while(slide && !slide.classList.contains('slide')) {   //On remonte les éléments jusqu'à la slide mère
                     slide = slide.parentNode;
                 }
                 
@@ -96,13 +95,48 @@ var self = window.SlideShow = function(slide) {
                 body.removeEventListener('click', arguments.callee);
             }, false);
         }
-    }
+    } // --Fin de la fonction overview
 	
 	// Order of the slides
 	this.order = [];
 	
+	//Creation de la liste contenant les notes
+	this.notes = [];
+	
 	for(var i=0; i<this.slides.length; i++) {
 		var slide = this.slides[i]; // to speed up references
+		
+		// Create slide indicator
+		var indicator = document.createElement('div');
+		indicator.classList.add('indicator');
+		indicator.textContent=i;
+		
+		//On l'insère en temps que premier noeud
+		if(slide.firstChild) slide.insertBefore(indicator,slide.firstChild);
+		else slide.appendChild(indicator);
+
+		//Création du footer
+		var dataFooter = body.getAttribute('data-footer');
+		
+		if (dataFooter && !slide.getAttribute('data-no-footer')){
+			var footer=document.createElement("p");
+			footer.textContent=dataFooter;
+			footer.classList.add('foot');
+			slide.appendChild(footer);
+		}
+		
+		if (body.getAttribute('data-nice')){
+			slide.classList.add("nice");
+		}
+		
+		
+		//On remplit les notes
+		
+		this.notes[i]="";
+		if ($(".presenter-notes",slide)){
+			this.notes[i]=$(".presenter-notes",slide).textContent;
+		}
+		
 		
 		// Asign ids to slides that don't have one
 		if(!slide.id) {
@@ -126,12 +160,16 @@ var self = window.SlideShow = function(slide) {
 		
 		slide.setAttribute('data-index', i);
 		
+		//On importe une slide déjà utilisée
 		var imp = slide.getAttribute('data-import'),
-			imported = imp? this.getSlideById(imp) : null;
+			imported = imp? this.getSlideById(imp) : null;  
 		
-		this.order.push(imported? +imported.getAttribute('data-index') : i);
+		this.order.push(imported? +imported.getAttribute('data-index') : i); // On met dans la liste de l'ordre soit une nouvelle slide, soit l'id de la slidé importée
 	}
 	
+	
+	//window.opener : référence de la fenêtre mère
+	//opener : référence de la fénêtre fille
 	if(window.name === 'projector' && window.opener && opener.slideshow) {
 		body.classList.add('projector');
 		this.presenter = opener.slideshow;
@@ -153,6 +191,8 @@ var self = window.SlideShow = function(slide) {
 	document.addEventListener('keydown', this, false);
 	
 	// Process iframe slides
+	//Mettre dans le html <section class="slide" data-src="index.html"/></section>
+	//Ne marche pas sous firefox en chargement page sans serveur web
 	$$('.slide[data-src]:empty').forEach(function(slide) {
 		var iframe = document.createElement('iframe');
 		
@@ -232,6 +272,45 @@ self.prototype = {
 							
 							// Switch this one to presenter view
 							body.classList.add('presenter');
+							
+							//Ajouter le chronomètre
+							
+							var timer=document.createElement("div");
+							timer.textContent="00:00";
+							timer.id="timer-text";
+							document.body.appendChild(timer);
+							timer.addEventListener("click",function(){
+								
+								$("#timer").setAttribute('style', PrefixFree.prefixCSS('transition-duration: ' + 0 + 's;'));
+								$("#timer").className ="start";
+
+								
+								RAZ();
+								timer.textContent="00:00";
+								
+								setTimeout(function() { //Sinon le timer ne revient pas à l'origine
+								
+									$("#timer").setAttribute('style', PrefixFree.prefixCSS('transition-duration: ' + window.slideshow.duration * 60 + 's;'));
+									$("#timer").className ="end";
+								
+									}, 100);
+								
+								},false);
+							
+							
+							var stopwatch=setInterval(function(){
+								
+								
+								$("#timer-text").textContent=chrono();
+		
+								
+								}, 1000);
+							
+							//Ajouter les notes
+							var note = document.createElement("div");
+							note.textContent=window.slideshow.notes[window.slideshow.index];
+							note.id="presenter-notes";
+							document.body.appendChild(note);
 					}
 				}
 				break;
@@ -408,7 +487,16 @@ self.prototype = {
 				this.adjustFontSize();
 			}
 			
-			this.indicator.textContent = this.index + 1;
+			
+			//Old : ancien numéro de page
+			//this.indicator.textContent = this.index + 1;
+			
+			//Changement de note
+			
+			if ($(".presenter")){
+				
+				$("#presenter-notes").textContent=this.notes[this.index];
+			}
 			
 			// Update items collection
 			this.items = $$('.delayed, .delayed-children > *', this.slides[this.slide]);
@@ -423,7 +511,10 @@ self.prototype = {
 			for (var i=this.slides.length; i--;) {
 				this.slides[i].classList.remove('previous');
 				this.slides[i].classList.remove('next');
+				this.slides[i].classList.remove('actual');
 			}
+			
+			this.slides[this.order[this.index]].classList.add('actual');
 			
 			this.slides.previous = this.slides[this.order[this.index - 1]];
 			this.slides.next = this.slides[this.order[this.index + 1]];

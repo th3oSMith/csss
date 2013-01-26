@@ -10,7 +10,7 @@
 .slide,
 .delayed,
 .delayed-children > * {
-	transition:.5s;
+	transition:0.5s;
 	transition-property: transform, opacity, left, top, right, bottom, background;
 }
  
@@ -24,6 +24,7 @@
  
  body {
  	margin: 0;
+	overflow:hidden;
  }
  
 .slide {
@@ -37,16 +38,34 @@
 	
 	font-size:250%;
 	line-height:1.6;
+	transition-duration:0s;
 }
  
  .slide.previous,
  .slide:target,
  .slide.next {
 	display: block;
-	visibility: hidden;
 	overflow:hidden;
+	visibility:hidden;
  }
  
+ .slide.next.nice,
+ .slide.previous.nice {
+ 
+	transform: scale(.2, .2);
+	
+ }
+ 
+ 
+ .slide.actual{
+ 
+	transition-duration:0.5s;
+	transform: scale(1,1);
+	
+ 
+ }
+ 
+
  .slide:target {
  	z-index:100;
  	opacity:1;
@@ -57,12 +76,14 @@
 /**
 	Slide numbers
  */ 
-#indicator {
+.indicator {
+  
+  
   	position: absolute;
-  	top: .05in;
-  	right: .5em;
+  	bottom: 1.1em;
+  	right: 1em;
   	z-index: 1010;
-  	
+ 
   	font-size: .15in;
   	color: white;
   	background: rgba(0,0,0,.25);
@@ -162,7 +183,8 @@ button.onscreen-nav {
 } 
 
 .show-thumbnails .slide,
-.presenter .slide.next {
+.presenter .slide.next,
+.presenter .slide.actual {
 	width: 1024px;
 	height: 768px;
 	box-sizing: border-box;
@@ -173,9 +195,11 @@ button.onscreen-nav {
 	opacity: 1;
 	margin:-292px -395px;
 	cursor: pointer;
+	display:block;
+	visibility:visible;
 	
 	transform: scale(.2, .2);
-	transition:1s transform;
+	transition:0s transform;
 }
 
 .show-thumbnails.headers-only .slide {
@@ -193,7 +217,7 @@ button.onscreen-nav {
 
 .show-thumbnails .slide:hover,
 .show-thumbnails .slide:target,
-.presenter .slide:target + .slide {
+.presenter.show-thumbnails .slide:target {
 	outline: 20px solid rgba(255, 255, 255, .6);
 	outline-radius:5px;
 	
@@ -208,7 +232,7 @@ button.onscreen-nav {
 	outline-color: rgba(255, 255, 255, .9);
 }
 
-/* Display titles */
+/* Display titles 
 .show-thumbnails .slide[data-title]:after {
 	content: attr(data-title);
 	position: absolute;
@@ -223,6 +247,7 @@ button.onscreen-nav {
 	text-shadow: .05em .05em .1em black;
 	transform: none;
 }
+*/
 
 /* Hide all elements in slide by hitting Ctrl + J or Shift + J */
 .hide-elements .slide:target > * {
@@ -233,15 +258,15 @@ button.onscreen-nav {
 /* Timer */
 
 #timer {
-	position:absolute;
-	top:0;
+	position:fixed;
+	bottom:0;
 	left:0;
 	z-index:101;
 	width:0%;
-	height:16px;
-	line-height: 16px;
+	height:5px;
+	line-height: 5px;
 	padding: 0 5px;
-	background:rgba(0,0,0,.5);
+	background: none repeat scroll 0% 0% rgb(19, 100, 100);
 	overflow: hidden;
 	text-align: right;
 	box-sizing: border-box;
@@ -249,7 +274,6 @@ button.onscreen-nav {
 }
 
 	#timer:before {
-		content: 'Progress ';
 		text-transform: uppercase;
 		color: white;
 		font-size: 9px;
@@ -258,12 +282,31 @@ button.onscreen-nav {
 #timer.end {
 	width: 100%;
 }
+#timer.start {
+	width:0%;
+}
+
 
 #timer.end.overtime {
 	width: 0%;
 	left: auto;
 	right: 0;
 }
+
+.foot {
+	background: rgba(0,0,0,.8);
+	color: white;
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 1em;
+	padding: .5em 1em;
+	font-size: 30%;
+	text-shadow: .05em .05em .1em black;
+}
+
+
 
 /* Presenter & projector views */
 
@@ -272,18 +315,24 @@ button.onscreen-nav {
 }
 
 .presenter-notes {
+	
+	display:none;
+
+}
+
+.presenter-notes_Legacy {
 	display: none;
 	position: fixed;
 	right: 230px;
 	bottom: 0;
 	left: 0;
+	z-index:999;
 	max-height: 6em;
 	overflow: auto;
 	padding: .6em 1em;
 	font-size: 60%;
 	line-height: 1.3;
 	font-weight: normal;
-	resize:vertical;
 	background: rgba(255, 255, 255, .5);
 	color: black;
 	text-shadow: 0 1px white;
@@ -291,14 +340,52 @@ button.onscreen-nav {
 }
 
 .presenter .slide.next {
-	position: fixed;
-	top: auto;
-	right: 0;
-	bottom: 0;
-	left: auto;
-	z-index: 100;
+	
+	transform: scale(0.3);
+	margin:-255px -375px;
+
+	
 }
 
+.presenter .slide.actual {
+
+	transform:scale(0.6);
+	margin:-140px -210px;
+	
+
+}
+
+.presenter.show-thumbnails .slide.actual,
+.presenter.show-thumbnails .slide.next {
+
+	transform:scale(0.2);
+	margin:-292px -395px;
+	
+
+}
+
+
 .presenter .slide:target > .presenter-notes {
-	display: block;
+	display: none;
+}
+
+#presenter-notes {
+
+	border:1px solid black;
+	display:inline-block;
+	padding:5px;
+	width:500px;
+	height:200px;
+	background-color: rgba(0, 0, 0, 0.8);
+	color:white;
+}
+
+#timer-text{
+
+	display:inline-block;
+	margin-left:50px;
+	margin-top:100px;
+	font-size:250%;
+	margin-bottom:100px;
+
 }

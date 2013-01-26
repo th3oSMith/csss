@@ -94,10 +94,11 @@ strong, b {
 	background-clip: padding-box;
 	text-shadow:.05em .05em .1em rgba(0,0,0,.4);
 	color: white;
-	border:30px solid transparent;
+	border-left:50px solid transparent;
+	border-right:50px solid transparent;
 }
 
-#indicator {
+.indicator {
 	background: rgba(255, 255, 255, .6);
 	color: black;
 	text-shadow: .03em .03em .1em white;
@@ -148,7 +149,7 @@ strong, b {
 				padding-right: .2em;
 			}
 			
-section > header.slide {
+.slide {
 	background-color: rgba(0,0,0,.8);
 }
 

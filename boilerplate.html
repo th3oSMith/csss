@@ -19,12 +19,12 @@
 <script src="prefixfree.min.js"></script>
 
 </head>
-<body data-duration="45">
+<body data-duration="1" data-nice="true" data-footer="Présentation CSS - By Th3o SMith">
 
-<header id="intro" class="slide">
+<section  class="slide" data-no-footer="true">
 	<h1>Sample CSSS presentation</h1>
-	<p class="attribution">By Lea Verou</p>
-</header>
+	<p class="attribution">By Th3o SMith</p>
+</section>
 
 <section>
 	<header class="slide">
@@ -33,7 +33,11 @@
 	
 	<section class="slide">
 		<h2>Slide title</h2>
-		<p>Slide content</p>
+		<ul>
+		<li class="delayed">Test 1</li>
+		<li class="delayed">Tets 2</li>
+		</ul>
+		<p class="presenter-notes">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 	</section>
 </section>
 
@@ -42,7 +46,10 @@
 	<p>Closing remarks</p>
 </footer>
 
+<section class="slide"></section>
+
 <script src="slideshow.js"></script>
+<script src="plugins/stopwatch.js"></script>
 
 <!-- Uncomment the plugins you need
 <script src="plugins/css-edit.js"></script>
