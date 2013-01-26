@@ -342,15 +342,15 @@ button.onscreen-nav {
 .presenter .slide.next {
 	
 	transform: scale(0.3);
-	margin:-255px -375px;
+	margin:-242px -375px;
 
 	
 }
 
 .presenter .slide.actual {
 
-	transform:scale(0.6);
-	margin:-140px -210px;
+	transform:scale(0.75);
+	margin:-70px -110px;
 	
 
 }
@@ -375,7 +375,7 @@ button.onscreen-nav {
 	display:inline-block;
 	padding:5px;
 	width:500px;
-	height:200px;
+	height:300px;
 	background-color: rgba(0, 0, 0, 0.8);
 	color:white;
 }
@@ -387,5 +387,14 @@ button.onscreen-nav {
 	margin-top:100px;
 	font-size:250%;
 	margin-bottom:100px;
+	background-color: rgba(0, 0, 0, 0.8);
+	color:white;
+	padding:5px;
+}
+
+.presenter.show-thumbnails #timer-text,
+.presenter.show-thumbnails #presenter-notes {
+
+		display:none;
 
 }
