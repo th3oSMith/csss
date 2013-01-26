@@ -20,6 +20,7 @@
  
  html, body {
  	height: 100%;
+ 	-webkit-print-color-adjust:exact;
  }
  
  body {
@@ -28,7 +29,7 @@
  }
  
 .slide {
-	display: none;
+	visibility:hidden;
 	position:absolute;
 	top:0;
 	right:0;
@@ -53,6 +54,7 @@
  .slide.previous.nice {
  
 	transform: scale(.2, .2);
+	-webkit-transform:  scale(.2, .2);
 	
  }
  
@@ -61,7 +63,7 @@
  
 	transition-duration:0.5s;
 	transform: scale(1,1);
-	
+	-webkit-transform:scale(1,1);
  
  }
  
@@ -199,6 +201,7 @@ button.onscreen-nav {
 	visibility:visible;
 	
 	transform: scale(.2, .2);
+	-webkit-transform:scale(.2, .2);
 	transition:0s transform;
 }
 
@@ -342,6 +345,7 @@ button.onscreen-nav {
 .presenter .slide.next {
 	
 	transform: scale(0.3);
+	-webkit-transform:scale(0.3);
 	margin:-242px -375px;
 
 	
@@ -350,6 +354,7 @@ button.onscreen-nav {
 .presenter .slide.actual {
 
 	transform:scale(0.75);
+	-webkit-transform:scale(0.75);
 	margin:-70px -110px;
 	
 
@@ -359,6 +364,7 @@ button.onscreen-nav {
 .presenter.show-thumbnails .slide.next {
 
 	transform:scale(0.2);
+	-webkit-transform:scale(0.2);
 	margin:-292px -395px;
 	
 

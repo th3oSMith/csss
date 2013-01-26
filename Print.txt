@@ -1,0 +1,9 @@
+Impression : 
+
+Réglages :
+
+-> 6 vignettes par page :
+
+	-webkit-transform:scale(.3, .3);
+	margin:-250px -350px;
+

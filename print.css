@@ -1,0 +1,226 @@
+/**
+	Basic CSS so that the slideshow script functions as a slideshow
+	@author Lea Verou
+	@version 1.0
+ */
+
+/**
+ * "Variables"
+ */
+.slide,
+.delayed,
+.delayed-children > * {
+	transition:0.5s;
+	transition-property: transform, opacity, left, top, right, bottom, background;
+}
+ 
+/**
+ * Styles
+ */
+ 
+ html, body {
+ 	height: 100%;
+ 	-webkit-print-color-adjust:exact;
+ }
+ 
+ body {
+ 	margin: 0;
+	overflow:hidden;
+ }
+ 
+.slide {
+	visibility:visible;
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	z-index:1;
+	
+	font-size:250%;
+	line-height:1.6;
+	transition-duration:0s;
+}
+ 
+
+ 
+
+ 
+
+ 
+
+ .slide:target {
+ 	z-index:100;
+ 	opacity:1;
+ 	visibility: visible;
+ 	overflow: visible;
+}
+
+/**
+	Slide numbers
+ */ 
+.indicator {
+  
+  
+  	position: absolute;
+  	bottom: 1.1em;
+  	right: 1em;
+  	z-index: 1010;
+ 
+  	font-size: .15in;
+  	color: white;
+  	background: rgba(0,0,0,.25);
+  	font-weight: 900;
+  	text-shadow: .05em .05em .1em black;
+  	text-align: center;
+  	padding: .1em .3em 0;
+  	min-width: 1.6em;
+  	box-sizing: border-box;
+  	border-radius: 999px;
+}
+
+/* If there's nothing selected, show the first */
+.slide:first-child {
+	z-index:2;
+}
+
+/* Delayed items that are shown incrementally after the slide is */
+.delayed,
+.delayed-children > * {
+	opacity: 0;
+}
+
+.delayed.displayed,
+.delayed-children > .displayed {
+	opacity: .3;
+}
+
+.delayed.current,
+.delayed-children > .current,
+.delayed.displayed.non-dismissable,
+.delayed-children > .displayed.non-dismissable, /* non-dismissable name is deprecated */
+.delayed.displayed.persistent,
+.delayed-children > .displayed.persistent,
+.delayed-children.persistent > .displayed {
+	opacity: 1;
+}
+
+/**
+ 	On-screen navigation
+ */
+
+button.onscreen-nav {
+	position: absolute;
+	bottom: 1em;
+	right: 1em;
+	padding: .2em .4em;
+	border: 0;
+	border-radius: .3em;
+	background: rgba(0,0,0,.5);
+	color: white;
+	text-shadow: 0 -.05em .05em black;
+	text-transform: uppercase;
+}
+
+/**
+	iframe slides
+ */
+.iframe.slide {
+	padding: 0 !important;
+	text-align: center;
+} 
+
+	.iframe.slide > h1 {
+		position: absolute;
+		bottom: 0; right: 0; left: 0;
+		background: rgba(0,0,0,.5);
+		font-size: 100%;
+	}
+	
+		.iframe.slide > h1 > a {
+			display: inline-block;
+			padding: .2em .5em;
+			
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			text-shadow: 0 -.05em .05em black;
+		}
+	
+	.slide > iframe:only-of-type {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+
+/**
+	Show thumbnails
+ */
+
+.show-thumbnails {
+	overflow-x: hidden;	
+} 
+
+.slide {
+	width: 1366px;
+	height: 768px;
+	box-sizing: border-box;
+	
+	float: left;
+	overflow: hidden;
+	position: static;
+	opacity: 1;
+
+	cursor: pointer;
+	display:block;
+	visibility:visible;
+
+	-webkit-transform:scale(.5, .5);
+	margin:-150px -340px;
+
+	
+	transition:0s transform;
+	
+	page-break-inside:avoid !important;
+}
+
+
+
+
+
+
+
+
+.foot {
+	background: rgba(0,0,0,.8);
+	color: white;
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 1em;
+	padding: .5em 1em;
+	font-size: 30%;
+	text-shadow: .05em .05em .1em black;
+}
+
+
+/*
+ * Printing Settings
+ * */
+
+.presenter-notes{
+
+	display:none;
+
+}
+
+body,html {
+	
+	background:white;
+
+}
