@@ -1,0 +1,102 @@
+/*
+ * 
+ * Thème de base
+ * 
+ * 
+ * */
+
+
+
+body{
+
+	font-family: sans-serif;
+	background:url(img/dark_geometric.png);
+
+
+}
+
+.slide{
+
+	border-left:100px solid transparent;
+	border-right:100px solid transparent;
+	
+	padding:20px;
+	background: radial-gradient(at top left, silver, rgba(255,255,255,1));
+	background: -webkit-gradient(radial, left top, 0, left top, 800, from(silver), to(rgba(255,255,255,1)));
+	background-clip: padding-box;
+
+}
+
+.slide h2 {
+	
+	margin-top:0px;
+
+}
+
+
+
+.foot {
+	
+	background: rgba(0,0,0,.8);
+	color: white;
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 1em;
+	padding: .5em 1em;
+	font-size: 30%;
+	text-shadow: .05em .05em .1em black;
+	
+	font-size:15px;
+	bottom:10px;
+	background:#1E90FF;
+	margin-bottom:0px;
+	height:30px;
+
+}
+
+.left {
+
+	
+	color: white;
+  	background: rgba(0,0,0,.25);
+  	box-sizing: border-box;
+	width:40px;
+	font-size:20px;
+	padding-top:5px;
+
+	position:absolute;
+	height:100%;
+	bottom:0em;
+	
+  	right: 1em;
+  	z-index: 109;
+ 
+	
+
+}
+
+.indicator {
+
+	position: absolute;
+  	bottom: 1.1em;
+  	right: 1em;
+  	z-index: 1010;
+
+	color: white;
+  	background: rgba(0,0,0,.25);
+  	font-weight: 900;
+  	text-shadow: .05em .05em .1em black;
+  	text-align: center;
+  	vertical-align:bottom;
+  	box-sizing: border-box;
+	width:40px;
+	font-size:20px;
+	padding-top:5px;
+
+	position:absolute;
+	height:100%;
+	bottom:-0em
+	
+}
