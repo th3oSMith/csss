@@ -26,6 +26,10 @@ var documentTitle = document.title + '';
 var self = window.SlideShow = function(slide) {
 	var me = this;
 	
+	//Set variable pour le controle à la souris
+	
+	this.click=false;
+	
 	// Set instance
 	if(!window.slideshow) {
 		window.slideshow = this;
@@ -111,9 +115,7 @@ var self = window.SlideShow = function(slide) {
 		indicator.classList.add('indicator');
 		indicator.textContent=i;
 		
-		//On l'insère en temps que premier noeud
-		if(slide.firstChild) slide.insertBefore(indicator,slide.firstChild);
-		else slide.appendChild(indicator);
+
 
 		//Création du footer
 		var dataFooter = body.getAttribute('data-footer');
@@ -123,6 +125,14 @@ var self = window.SlideShow = function(slide) {
 			footer.textContent=dataFooter;
 			footer.classList.add('foot');
 			slide.appendChild(footer);
+			footer.appendChild(indicator);
+		}else{
+		
+		/*	
+		//On insère le numéro de page en temps que premier noeud
+		if(slide.firstChild) slide.insertBefore(indicator,slide.firstChild);
+		else slide.appendChild(indicator);
+			*/
 		}
 		
 		if (body.getAttribute('data-nice')){
@@ -130,11 +140,18 @@ var self = window.SlideShow = function(slide) {
 		}
 		
 		
+		//Insertion des éléments de design
+		
+		var left = document.createElement('div');
+		left.classList.add('left');
+		if(slide.firstChild) slide.insertBefore(left,slide.firstChild);
+		else slide.appendChild(left);
+		
 		//On remplit les notes
 		
 		this.notes[i]="";
 		if ($(".presenter-notes",slide)){
-			this.notes[i]=$(".presenter-notes",slide).textContent;
+			this.notes[i]=$(".presenter-notes",slide).innerHTML;
 		}
 		
 		
@@ -189,6 +206,7 @@ var self = window.SlideShow = function(slide) {
 	
 	document.addEventListener('keyup', this, false);
 	document.addEventListener('keydown', this, false);
+	
 	
 	// Process iframe slides
 	//Mettre dans le html <section class="slide" data-src="index.html"/></section>
@@ -245,9 +263,20 @@ self.prototype = {
 				Ctrl+P : Presenter view
 				(Shift instead of Ctrl works too)
 			*/
+			case 'click':
+				this.next();
+			break;
+			
+			
 			case 'keyup':
 				if((evt.ctrlKey || evt.shiftKey) && !evt.altKey && !/^(?:input|textarea)$/i.test(document.activeElement.nodeName)) {
 					switch(evt.keyCode) {
+						
+						case 67: //C
+							
+							if (!window.slideshow.click){document.addEventListener('click', this, false);window.slideshow.click=true}
+							else{document.removeEventListener('click', this, false);window.slideshow.click=false}
+							break;
 						case 71: // G
 							var slide = prompt('Which slide?');
 							me.goto(+slide? slide - 1 : slide);
@@ -308,7 +337,7 @@ self.prototype = {
 							
 							//Ajouter les notes
 							var note = document.createElement("div");
-							note.textContent=window.slideshow.notes[window.slideshow.index];
+							note.innerHTML=window.slideshow.notes[window.slideshow.index];
 							note.id="presenter-notes";
 							document.body.appendChild(note);
 					}
@@ -495,7 +524,7 @@ self.prototype = {
 			
 			if ($(".presenter")){
 				
-				$("#presenter-notes").textContent=this.notes[this.index];
+				$("#presenter-notes").innerHTML=this.notes[this.index];
 			}
 			
 			// Update items collection
@@ -555,6 +584,8 @@ self.prototype = {
 	},
 	
 	adjustFontSize: function() {
+		
+		
 		// Cache long lookup chains, for performance
 		var htmlStyle = html.style,
 			scrollRoot = html.scrollHeight? html : body,

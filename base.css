@@ -20,19 +20,54 @@ body{
 	border-left:100px solid transparent;
 	border-right:100px solid transparent;
 	
-	padding:20px;
+	padding-left:50px;
 	background: radial-gradient(at top left, silver, rgba(255,255,255,1));
 	background: -webkit-gradient(radial, left top, 0, left top, 800, from(silver), to(rgba(255,255,255,1)));
 	background-clip: padding-box;
+	font-size:30px
 
 }
 
 .slide h2 {
 	
-	margin-top:0px;
+	margin-top:10px;
+	margin-left:0px;
+	font-size:60px;
 
 }
 
+h1 {
+
+	margin-top:250px;
+	font-size:100px;
+	font-family: 'Cabin Sketch', cursive;
+	text-decoration:underline;
+	
+}
+
+ol li {
+
+	margin-top:15px;
+	font-size:35px;
+	font-weight:bold;
+	
+
+}
+
+ol ol li {
+
+	margin-top:0px;
+	font-size:30px;
+	font-weight:normal;
+
+}
+
+ul li {
+
+	font-size:30px;
+	vertical-align:bottom;
+
+}
 
 
 .foot {

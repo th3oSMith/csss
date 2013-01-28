@@ -59,6 +59,8 @@
 /**
 	Slide numbers
  */ 
+ 
+ /*
 .indicator {
   
   
@@ -78,7 +80,7 @@
   	box-sizing: border-box;
   	border-radius: 999px;
 }
-
+*/
 /* If there's nothing selected, show the first */
 .slide:first-child {
 	z-index:2;
@@ -194,7 +196,7 @@ button.onscreen-nav {
 
 
 
-
+/*
 .foot {
 	background: rgba(0,0,0,.8);
 	color: white;
@@ -207,7 +209,7 @@ button.onscreen-nav {
 	font-size: 30%;
 	text-shadow: .05em .05em .1em black;
 }
-
+*/
 
 /*
  * Printing Settings
