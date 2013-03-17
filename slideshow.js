@@ -53,7 +53,8 @@ var self = window.SlideShow = function(slide) {
 		
 		addEventListener('load', function() {
 			timer.className = 'end';
-
+			
+			
 			setTimeout(function() {
 				timer.classList.add('overtime');
 			}, me.duration * 60000);
@@ -312,7 +313,6 @@ self.prototype = {
 								
 								$("#timer").setAttribute('style', PrefixFree.prefixCSS('transition-duration: ' + 0 + 's;'));
 								$("#timer").className ="start";
-
 								
 								RAZ();
 								timer.textContent="00:00";
@@ -321,7 +321,12 @@ self.prototype = {
 								
 									$("#timer").setAttribute('style', PrefixFree.prefixCSS('transition-duration: ' + window.slideshow.duration * 60 + 's;'));
 									$("#timer").className ="end";
-								
+									
+									setTimeout(function() {
+										$("#timer").classList.add('overtime');
+										}, me.duration * 60000);
+									
+									
 									}, 100);
 								
 								},false);

@@ -41,7 +41,6 @@
 	left:0;
 	z-index:1;
 	
-	font-size:250%;
 	line-height:1.6;
 	transition-duration:0s;
 	-webkit-transition-duration:0s;
@@ -387,6 +386,8 @@ button.onscreen-nav {
 	height:300px;
 	background-color: rgba(0, 0, 0, 0.8);
 	color:white;
+	font-size:15px;
+	
 }
 
 #timer-text{

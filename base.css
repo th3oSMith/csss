@@ -6,12 +6,15 @@
  * */
 
 
+/*On importe le style css de la présentation*/
+
+
 
 body{
 
 	font-family: sans-serif;
 	background:url(img/dark_geometric.png);
-
+	font-size:30px;
 
 }
 
@@ -24,7 +27,7 @@ body{
 	background: radial-gradient(at top left, silver, rgba(255,255,255,1));
 	background: -webkit-gradient(radial, left top, 0, left top, 800, from(silver), to(rgba(255,255,255,1)));
 	background-clip: padding-box;
-	font-size:30px
+	
 
 }
 
@@ -134,4 +137,15 @@ ul li {
 	height:100%;
 	bottom:-0em
 	
+}
+.slide > ul > li:before {
+			content:'\2714';
+			color: #217FDB;
+			
+		}
+		
+.slide ul {
+
+	list-style: none outside none;
+
 }
